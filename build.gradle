@@ -1,0 +1,55 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.9.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+group = 'com.altarix.crud'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+configurations.all {
+	exclude module: 'slf4j-log4j12'
+}
+ext {
+	vaadinVersion = '8.1.0'
+}
+
+dependencies {
+	compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.1')
+	compile('com.vaadin:vaadin-spring-boot-starter')
+	compile('org.springframework.boot:spring-boot-starter-aop')
+	compile('org.aspectj:aspectjrt:1.6.11')
+	compile('org.aspectj:aspectjweaver:1.8.8')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('io.springfox:springfox-swagger2:2.6.1')
+	compile('io.springfox:springfox-swagger-ui:2.6.1')
+	compile ('org.json:json:20160212')
+	compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+	runtime('org.postgresql:postgresql')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+	compile('com.haulmont.yarg:yarg:1.0.67')
+	compile('com.haulmont.yarg:yarg-api:1.0.67')
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "com.vaadin:vaadin-bom:${vaadinVersion}"
+	}
+}
+
