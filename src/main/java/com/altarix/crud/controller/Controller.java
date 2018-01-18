@@ -3,6 +3,7 @@ package com.altarix.crud.controller;
 import com.altarix.crud.model.entity.Doc;
 import com.altarix.crud.service.DataService;
 import com.altarix.crud.service.ReportService;
+import com.altarix.crud.service.ReportServiceDescribedViaXml;
 import com.altarix.crud.service.RequestService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.annotations.Api;
@@ -37,6 +38,9 @@ public class Controller {
     @Autowired
     private ReportService reportService;
 
+    @Autowired
+    private ReportServiceDescribedViaXml reportServiceXml;
+
     @ApiOperation(value = "View a list of exists documents", response = Iterable.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved list of documents"),
@@ -46,6 +50,7 @@ public class Controller {
     public Iterable<Doc> getDocs() {
         return dataService.getAll();
     }
+
 
     @ApiOperation(value = "Search a document with an ID", response = Doc.class)
     @RequestMapping(value = "/{card_id}", method = RequestMethod.GET)
@@ -86,4 +91,19 @@ public class Controller {
                 .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
                 .body(resource);
     }
+
+    @RequestMapping(value = "/reportXml", method = RequestMethod.GET)
+    public ResponseEntity<Resource> getReportXml() {
+        ByteArrayResource resource = new ByteArrayResource(reportServiceXml.createReport().toByteArray());
+        return ResponseEntity.ok()
+                .header("Content-Disposition", " attachment; filename=reportV2.xls")
+                .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
+                .body(resource);
+    }
+
+    @RequestMapping(value = "/kindfox", method = RequestMethod.GET)
+    public ResponseEntity.BodyBuilder fox() {
+        return ResponseEntity.ok();
+    }
+
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report name="report">
+    <templates>
+        <template code="DEFAULT" documentName="document.xls" documentPath="/home/user/document.xls" outputType="xls" outputNamePattern="report.xls"/>
+    </templates>
+    <rootBand name="Root" orientation="H">
+                <bands>
+                    <band name="Document" orientation="H">
+                        <queries>
+                            <query name="Document" type="sql">
+                                <script>
+                                    select doc.name as "name", doc.code as "code", doc.kind as "kind" , doc.date as "date" from doc
+                                </script>
+                            </query>
+                        </queries>
+                    </band>
+                </bands>
+    </rootBand>
+</report>
+
+

@@ -45,6 +45,8 @@ dependencies {
 	testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
 	compile('com.haulmont.yarg:yarg:1.0.67')
 	compile('com.haulmont.yarg:yarg-api:1.0.67')
+	testCompile('junit:junit:4.12')
+	testCompile 'org.mockito:mockito-all:1.9.5'
 }
 
 dependencyManagement {
